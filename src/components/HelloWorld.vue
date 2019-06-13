@@ -22,20 +22,53 @@
     <input type="text" v-model="title" placeholder="Add Todo...">
     <input type="submit" value="Submit" @click="add">
 
-    <ul>
-      <li v-for="todo in todos" :key="todo.id">{{todo.title}}</li>
-    </ul>
-    
+    <div class="items">
+      <div class="list-items" v-for="todo in todos" :key="todo.id">
+        {{todo.title}}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "App",
+  data() {
+    return {
+      msg: "Hello World",
+      posts: [],
+      title: ''
+    };
+  },
+  computed: {
+    vuexMessage() {
+      return this.$store.getters.message;
+    },
+    counting() {
+      return this.$store.getters.counter;
+    },
+    todos () {
+      return this.$store.getters.todos
+    }
+  },
+  methods: {
+    pressed() {
+      this.$store.commit("increment", 10);
+    },
+    unpressed() {
+      this.$store.commit("decrement", 10);
+    },
+    ...mapActions(['getTodos', 'addTodos', 'filterTodos']),
+    add() {
+      this.addTodos(this.title)
+    }
+  },
+  mounted() {
+    this.posts = this.$store.state.posts;
+    this.getTodos();
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -53,5 +86,12 @@ li {
 }
 a {
   color: #42b983;
+}
+.list-items {
+  margin: 5px 0px;
+    font-weight: 800;
+    height: 40px;
+    color: white;
+    background: #42b983;
 }
 </style>
