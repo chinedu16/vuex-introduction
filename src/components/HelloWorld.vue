@@ -1,8 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    {{msg}}
-    {{vuexMessage}}
+    <h1>{{ vuexMessage }}</h1>
     <br>
     <p>Counter: {{counting}}</p>
     <br>
@@ -140,5 +138,15 @@ a {
     background: #42b983;
     font-weight: 900;
     }
+  
+  button {
+    height: 30px;
+    width: 150px;
+    border-radius: 5px;
+    margin-right: 10px;
+    border-color: #42b983;
+    color: #42b983;
+    font-weight: 900;
+  }
 
 </style>
