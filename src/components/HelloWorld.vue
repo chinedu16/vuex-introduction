@@ -6,25 +6,35 @@
     <br>
     <p>Counter: {{counting}}</p>
     <br>
-    <button @click="pressed">Increment</button>
-    <button @click="unpressed">Decrement</button>
-    <br>Filter Todo
-    <select @change="filterTodos($event)">
-      <option value="200">200</option>
-      <option value="100">100</option>
-      <option value="50">50</option>
-      <option value="20">20</option>
-      <option value="10">10</option>
-      <option value="5">5</option>
-    </select>
-    <br>
+    <div class="count">
+      <button @click="pressed">Increment</button>
+     <button @click="unpressed">Decrement</button>
+    </div>
+    <br><br>
     
-    <input type="text" v-model="title" placeholder="Add Todo...">
-    <input type="submit" value="Submit" @click="add">
+
+    <div class="content-header">
+      <div class="add-items">
+        <input type="text" v-model="title" placeholder="Add Todo...">
+        <input type="submit" value="Submit" @click="add">
+      </div>
+
+      <div class="filter">
+        <select @change="filterTodos($event)">
+          <option value="200">200</option>
+          <option value="100">100</option>
+          <option value="50">50</option>
+          <option value="20">20</option>
+          <option value="10">10</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+    </div>
 
     <div class="items">
       <div class="list-items" v-for="todo in todos" :key="todo.id">
-        {{todo.title}}
+        <p>{{todo.title}}</p>
       </div>
     </div>
   </div>
@@ -89,9 +99,23 @@ a {
 }
 .list-items {
   margin: 5px 0px;
-    font-weight: 800;
-    height: 40px;
-    color: white;
-    background: #42b983;
+  font-weight: 800;
+  height: 60px;
+  color: white;
+  background: #42b983;
 }
+.items {
+  text-align: center;
+  grid-column-gap: 10px;
+  grid-row-gap: 15px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  }
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
 </style>
