@@ -15,11 +15,12 @@
 
     <div class="content-header">
       <div class="add-items">
-        <input type="text" v-model="title" placeholder="Add Todo...">
+        <input class="input-add" type="text" v-model="title" placeholder="Add Todo...">
         <input type="submit" value="Submit" @click="add">
       </div>
 
       <div class="filter">
+        <label for="">Filter Todos:  </label>
         <select @change="filterTodos($event)">
           <option value="200">200</option>
           <option value="100">100</option>
@@ -116,6 +117,16 @@ a {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+  }
+  select {
+    width: 150px;
+    height: 40px;
+  }
+  .input-add {
+    height: 40px;
+    width: 350px;
+    border-radius: 5px;
+    margin-right: 20px;
   }
 
 </style>
