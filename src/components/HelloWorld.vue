@@ -1,42 +1,85 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    {{msg}}
+    {{vuexMessage}}
+    <br>
+    <p>Counter: {{counting}}</p>
+    <br>
+    <div class="count">
+      <button @click="pressed">Increment</button>
+     <button @click="unpressed">Decrement</button>
+    </div>
+    <br><br>
+    
+
+    <div class="content-header">
+      <div class="add-items">
+        <input class="input-add" type="text" v-model="title" placeholder="Add Todo...">
+        <input type="submit" value="Submit" @click="add">
+      </div>
+
+      <div class="filter">
+        <label for="">Filter Todos:  </label>
+        <select @change="filterTodos($event)">
+          <option value="200">200</option>
+          <option value="100">100</option>
+          <option value="50">50</option>
+          <option value="20">20</option>
+          <option value="10">10</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="items">
+      <div class="list-items" v-for="todo in todos" :key="todo.id">
+        <p>{{todo.title}} <i style="margin-left: 50px; cursor: pointer;" @click="removeTodos(todo.id)" class="fas fa-trash-alt"></i></p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "App",
+  data() {
+    return {
+      msg: "Hello World",
+      posts: [],
+      title: ''
+    };
+  },
+  computed: {
+    vuexMessage() {
+      return this.$store.getters.message;
+    },
+    counting() {
+      return this.$store.getters.counter;
+    },
+    todos () {
+      return this.$store.getters.todos
+    }
+  },
+  methods: {
+    pressed() {
+      this.$store.commit("increment", 10);
+    },
+    unpressed() {
+      this.$store.commit("decrement", 10);
+    },
+    ...mapActions(['getTodos', 'addTodos', 'filterTodos', 'removeTodos']),
+    add() {
+      this.addTodos(this.title)
+    }
+  },
+  mounted() {
+    this.posts = this.$store.state.posts;
+    this.getTodos();
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -55,4 +98,47 @@ li {
 a {
   color: #42b983;
 }
+.list-items {
+  margin: 5px 0px;
+  font-weight: 800;
+  height: 69px;
+  color: white;
+  background: #42b983;
+}
+.items {
+  text-align: center;
+  grid-column-gap: 10px;
+  grid-row-gap: 15px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  }
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  select {
+    width: 150px;
+    height: 40px;
+  }
+  .input-add {
+    height: 40px;
+    width: 350px;
+    border-radius: 5px;
+    margin-right: 20px;
+    padding-left: 10px;
+    font-size: 16px;
+  }
+
+  input[type=submit] {
+    height: 40px;
+    width: 70px;
+    color: white;
+    border-radius: 5px;
+    margin-right: 20px;
+    background: #42b983;
+    font-weight: 900;
+    }
+
 </style>
