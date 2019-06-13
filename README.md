@@ -1,4 +1,12 @@
 # vuex-introduction
+```
+Building a vue counter and a todo list application with vuex. Undertanding the concepts surrounding vuex like state, mutation, actions adn getters
+
+Ability to increment counter
+Add Todo list
+Delete from Todo List
+View Todo list From vuex
+```
 
 ## Project setup
 ```
@@ -14,16 +22,3 @@ yarn run serve
 ```
 yarn run build
 ```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
