@@ -31,6 +31,9 @@ export default new Vuex.Store({
     },
     NEW_TODO(state, todo) {
       state.todos.unshift(todo);
+    },
+    REMOVE_TODO(state, id) {
+      state.todos.filter(todo => todo.id != id)
     }
   },
   
@@ -57,6 +60,11 @@ export default new Vuex.Store({
         { title, completed: false }
       );
       commit("NEW_TODO", response.data);
+    },
+    async removeTodos({commit}, id){
+      const response = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+      console.log(response.data)
+      commit("REMOVE_TODO", response.data)
     },
     async filterTodos({commit}, e){
       const limit = parseInt(

@@ -35,7 +35,7 @@
 
     <div class="items">
       <div class="list-items" v-for="todo in todos" :key="todo.id">
-        <p>{{todo.title}}</p>
+        <p>{{todo.title}} <i style="margin-left: 50px; cursor: pointer;" @click="removeTodos(todo.id)" class="fas fa-trash-alt"></i></p>
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@ export default {
     unpressed() {
       this.$store.commit("decrement", 10);
     },
-    ...mapActions(['getTodos', 'addTodos', 'filterTodos']),
+    ...mapActions(['getTodos', 'addTodos', 'filterTodos', 'removeTodos']),
     add() {
       this.addTodos(this.title)
     }
@@ -101,7 +101,7 @@ a {
 .list-items {
   margin: 5px 0px;
   font-weight: 800;
-  height: 60px;
+  height: 69px;
   color: white;
   background: #42b983;
 }
@@ -127,6 +127,18 @@ a {
     width: 350px;
     border-radius: 5px;
     margin-right: 20px;
+    padding-left: 10px;
+    font-size: 16px;
   }
+
+  input[type=submit] {
+    height: 40px;
+    width: 70px;
+    color: white;
+    border-radius: 5px;
+    margin-right: 20px;
+    background: #42b983;
+    font-weight: 900;
+    }
 
 </style>
